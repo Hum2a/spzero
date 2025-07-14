@@ -7,53 +7,52 @@ export const modules = [
         id: 1,
         title: "Evolution & Forms of Money",
         topics: [
-          "History of Money – barter → coins → paper → plastic → digital wallets",
-          "Time Value of Money – why “later” dollars are worth less",
-          "Digital Dollars & Stablecoins – tokenised dollars, how they work, key risks",
-          "Take quiz"
+          "History of Money",
+          "Time Value of Money",
+          "Digital Dollars & Stablecoins"
         ]
       },
       {
         id: 2,
         title: "Borrowing & the Cost of Credit",
         topics: [
-          "Why Banks Charge Interest – time, risk and opportunity-cost in one formula",
-          "Cost of Borrowing – APR vs. flat fees, fine-print traps on cards, loans, mortgages",
-          "Risk–Return Spectrum – from Treasury bills to crypto on one colour bar"
+          "Why Banks Charge Interest",
+          "Cost of Borrowing",
+          "Risk–Return Spectrum"
         ]
       },
       {
         id: 3,
         title: "Financial Infrastructure & Consumer Protections",
         topics: [
-          "Know Your Rights – CFPB, Fair Credit Billing Act, card-network protections",
-          "Insurance Basics – risk-pooling, deductibles, why premiums rise with inflation"
+          "Know Your Rights",
+          "Insurance Basics"
         ]
       },
       {
         id: 4,
         title: "Prices, Markets & Everyday Economics",
         topics: [
-          "Supply, Demand & Equilibrium – the price-setting tug-of-war you meet daily",
-          "Inflation (Real vs. Nominal) – how price rises silently shrink purchasing power",
-          "Economic Cycles – expansion, recession & the indicators that signal the turn"
+          "Supply, Demand & Equilibrium",
+          "Inflation (Real vs. Nominal)",
+          "Economic Cycles"
         ]
       },
       {
         id: 5,
         title: "Policy Levers & Macro Indicators",
         topics: [
-          "The Federal Reserve 101 – what the Fed actually does and how you feel it in your wallet",
-          "Fiscal Policy – how Congress’s tax-and-spend choices hit household budgets",
-          "Consumer Confidence Index – the mood metric that predicts spending booms (or busts)",
-          "Unemployment & Wages – why the jobs report can move interest rates—and your pay"
+          "The Federal Reserve 101",
+          "Fiscal Policy",
+          "Consumer Confidence Index",
+          "Unemployment & Wages"
         ]
       },
       {
         id: 6,
         title: "Global Forces & Trade",
         topics: [
-          "Global Trade & Currencies – exchange rates, tariffs and how a strong/weak dollar affects imports"
+          "Global Trade & Currencies"
         ]
       }
     ]

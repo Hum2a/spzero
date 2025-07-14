@@ -59,9 +59,10 @@ body {
 
 .modules-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
   margin-bottom: 40px;
+  align-items: stretch;
 }
 
 .module-tile {
@@ -74,6 +75,12 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+  min-height: 220px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .module-tile:hover {
@@ -292,7 +299,7 @@ body {
 }
 
 .module-progress-bar-container {
-  margin: 16px 0 8px 0;
+  margin: 24px 0 8px 0;
   height: 18px;
   background: #ece9f6;
   border-radius: 8px;
@@ -323,7 +330,7 @@ body {
 
 .module-complete-btn {
   display: block;
-  margin: 8px auto 0 auto;
+  margin: 12px auto 0 auto;
   background: #fef9c3;
   color: #b45309;
   border: none;
@@ -333,6 +340,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
+  min-height: 40px;
 }
 
 .module-complete-btn:hover {
@@ -388,7 +396,44 @@ body {
   color: #fff;
 }
 
+.evolution-quiz-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+.evolution-quiz-btn {
+  background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+  color: #fff;
+  font-size: 1.08rem;
+  font-weight: 700;
+  padding: 12px 32px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(118, 75, 162, 0.10);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.evolution-quiz-btn:hover {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .modules-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .module-tile {
+    min-height: 180px;
+    height: 180px;
+    padding: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 15px;
@@ -402,9 +447,10 @@ body {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  
   .module-tile {
-    padding: 25px;
+    min-height: 140px;
+    height: 140px;
+    padding: 16px;
   }
   
   .content-section {

@@ -41,6 +41,12 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
                 </button>
               </div>
             )}
+            {/* Add Take quiz CTA below Evolution & Forms of Money (id: 1) in Module 1 */}
+            {selectedModule === 1 && item.id === 1 && (
+              <div className="evolution-quiz-btn-container">
+                <button className="evolution-quiz-btn">Take quiz</button>
+              </div>
+            )}
           </div>
         ))}
       </div>
