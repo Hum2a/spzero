@@ -8,7 +8,11 @@ const VIDEO_MAP = {
   'Digital Dollars & Stablecoins': '/videos/Cryptocurrency.mp4',
 };
 
-const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectionComplete }) => {
+const DEMO_TOPICS = ['History of Money', 'Time Value of Money', 'Digital Dollars & Stablecoins'];
+const DEMO_ACTIONS = ['video', 'slides'];
+const DEMO_TOTAL = DEMO_TOPICS.length * DEMO_ACTIONS.length;
+
+const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectionComplete, demoActions, handleDemoAction }) => {
   const [videoModal, setVideoModal] = useState({ open: false, src: '', title: '' });
 
   if (!selectedModule) return null;
@@ -27,6 +31,14 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
       setVideoModal({ open: true, src: VIDEO_MAP[topic], title: topic });
     }
   };
+
+  // Demo: Section 1 progress
+  let demoSection1Progress = 0;
+  if (selectedModule === 1) {
+    demoSection1Progress = Math.round(
+      (DEMO_TOPICS.reduce((acc, topic) => acc + DEMO_ACTIONS.filter(action => demoActions[`${topic}:${action}`]).length, 0) / DEMO_TOTAL) * 100
+    );
+  }
 
   return (
     <section className="content-section">
@@ -50,19 +62,22 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
       <div className="content-list">
         {currentModule?.content.map((item) => (
           <div key={item.id} style={{ position: 'relative' }}>
-            <ContentItem item={item} onWatchVideo={handleWatchVideo} />
-            {isSectionFormat && (
-              <div className="section-progress-bar-container">
-                <div className="section-progress-bar" style={{ width: sectionState[item.id] ? '100%' : '0%' }} />
-                <span className="section-progress-label">{sectionState[item.id] ? 'Complete' : 'Incomplete'}</span>
-                <button
-                  className="section-complete-btn"
-                  onClick={() => toggleSectionComplete(selectedModule, item.id, totalSections)}
-                >
-                  {sectionState[item.id] ? 'Mark as incomplete' : 'Mark as complete'}
-                </button>
+            <ContentItem
+              item={item}
+              onWatchVideo={handleWatchVideo}
+              demoActions={demoActions}
+              handleDemoAction={handleDemoAction}
+              moduleId={selectedModule}
+              sectionId={item.id}
+            />
+            {/* Demo: Section 1 progress bar */}
+            {selectedModule === 1 && item.id === 1 && (
+              <div className="demo-section-progress-bar-container">
+                <div className="demo-section-progress-bar" style={{ width: demoSection1Progress + '%' }} />
+                <span className="demo-section-progress-label">{demoSection1Progress}% complete</span>
               </div>
             )}
+
             {/* Add Take quiz CTA below Evolution & Forms of Money (id: 1) in Module 1 */}
             {selectedModule === 1 && item.id === 1 && (
               <div className="evolution-quiz-btn-container">

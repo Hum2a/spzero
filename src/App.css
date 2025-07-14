@@ -422,6 +422,52 @@ body {
   transform: translateY(-2px) scale(1.03);
 }
 
+.demo-section-progress-bar-container {
+  margin: 18px 0 8px 0;
+  height: 14px;
+  background: #e0e7ff;
+  border-radius: 7px;
+  position: relative;
+  overflow: hidden;
+  width: 70%;
+  margin-left: 56px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 4px rgba(118, 75, 162, 0.08);
+  display: flex;
+  align-items: center;
+}
+
+.demo-section-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4f46e5 0%, #a78bfa 100%);
+  border-radius: 7px 0 0 7px;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1);
+  min-width: 0;
+}
+
+.demo-section-progress-label {
+  position: absolute;
+  right: 12px;
+  top: 0;
+  font-size: 0.93rem;
+  color: #3730a3;
+  font-weight: 600;
+  line-height: 14px;
+}
+
+.topic-btn.completed {
+  background: #d1fae5 !important;
+  color: #047857 !important;
+  border: 1px solid #34d399;
+}
+
+.topic-check {
+  margin-left: 6px;
+  color: #047857;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .modules-grid {

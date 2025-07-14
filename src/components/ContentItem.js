@@ -15,8 +15,9 @@ const getTopicTitle = (topic) => {
   return idx !== -1 ? topic.slice(0, idx).trim() : topic;
 };
 
-const ContentItem = ({ item, onWatchVideo }) => {
+const ContentItem = ({ item, onWatchVideo, demoActions, handleDemoAction, moduleId, sectionId }) => {
   // If the item has a topics array, render as a section with bullet points
+  const isDemo = moduleId === 1 && sectionId === 1;
   if (item.topics) {
     return (
       <div className="content-item">
@@ -24,17 +25,35 @@ const ContentItem = ({ item, onWatchVideo }) => {
         <div className="item-content">
           <h4 className="item-title">{item.title}</h4>
           <ul className="item-topics">
-            {item.topics.map((topic, idx) => (
-              <li key={idx} className="item-topic">
-                {getTopicTitle(topic)}
-                <div className="topic-actions">
-                  <button className="topic-btn video-btn" onClick={() => onWatchVideo && onWatchVideo(getTopicTitle(topic))}>
-                    Watch video <span className="btn-time">(2 minutes)</span>
-                  </button>
-                  <button className="topic-btn slides-btn">View Slides <span className="btn-time">(5 minutes)</span></button>
-                </div>
-              </li>
-            ))}
+            {item.topics.map((topic, idx) => {
+              const title = getTopicTitle(topic);
+              const videoKey = `${title}:video`;
+              const slidesKey = `${title}:slides`;
+              return (
+                <li key={idx} className="item-topic">
+                  {title}
+                  <div className="topic-actions">
+                    <button
+                      className={`topic-btn video-btn${isDemo && demoActions[videoKey] ? ' completed' : ''}`}
+                      onClick={() => {
+                        if (isDemo) handleDemoAction(title, 'video');
+                        if (onWatchVideo) onWatchVideo(title);
+                      }}
+                    >
+                      Watch video <span className="btn-time">(2 minutes)</span>
+                      {isDemo && demoActions[videoKey] && <span className="topic-check">✔</span>}
+                    </button>
+                    <button
+                      className={`topic-btn slides-btn${isDemo && demoActions[slidesKey] ? ' completed' : ''}`}
+                      onClick={() => isDemo && handleDemoAction(title, 'slides')}
+                    >
+                      View Slides <span className="btn-time">(5 minutes)</span>
+                      {isDemo && demoActions[slidesKey] && <span className="topic-check">✔</span>}
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
