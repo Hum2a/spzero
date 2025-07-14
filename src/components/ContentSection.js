@@ -5,6 +5,7 @@ const ContentSection = ({ selectedModule, modules }) => {
   if (!selectedModule) return null;
 
   const currentModule = modules.find(m => m.id === selectedModule);
+  const isSectionFormat = currentModule?.content?.[0]?.topics !== undefined;
 
   return (
     <section className="content-section">
@@ -18,6 +19,11 @@ const ContentSection = ({ selectedModule, modules }) => {
           <ContentItem key={item.id} item={item} />
         ))}
       </div>
+      {isSectionFormat && (
+        <div className="take-quiz-container">
+          <button className="take-quiz-btn">Take quiz</button>
+        </div>
+      )}
     </section>
   );
 };

@@ -214,6 +214,83 @@ body {
   line-height: 1.5;
 }
 
+.topic-actions {
+  margin-top: 6px;
+  display: flex;
+  gap: 10px;
+}
+
+.topic-btn {
+  background: #f3f4f6;
+  color: #4b4b4b;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.topic-btn:hover {
+  background: #667eea;
+  color: #fff;
+}
+
+.video-btn {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.video-btn:hover {
+  background: #6366f1;
+  color: #fff;
+}
+
+.slides-btn {
+  background: #fef9c3;
+  color: #b45309;
+}
+
+.slides-btn:hover {
+  background: #fde047;
+  color: #7c4700;
+}
+
+.btn-time {
+  font-size: 0.85em;
+  color: #888;
+  margin-left: 4px;
+}
+
+.take-quiz-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.take-quiz-btn {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 14px 36px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(118, 75, 162, 0.08);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.take-quiz-btn:hover {
+  background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-2px) scale(1.03);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
