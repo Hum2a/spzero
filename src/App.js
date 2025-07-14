@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Header from './components/Header';
+import ModulesSection from './components/ModulesSection';
+import ContentSection from './components/ContentSection';
+import { modules } from './data/modules';
+import { useModuleSelection } from './hooks/useModuleSelection';
 
 function App() {
+  const { selectedModule, handleModuleClick } = useModuleSelection();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <Header />
+        <ModulesSection 
+          modules={modules}
+          selectedModule={selectedModule}
+          onModuleClick={handleModuleClick}
+        />
+        <ContentSection 
+          selectedModule={selectedModule}
+          modules={modules}
+        />
+      </div>
     </div>
   );
 }
