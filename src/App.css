@@ -479,3 +479,79 @@ body {
     font-size: 1.1rem;
   }
 }
+
+.video-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(44, 41, 72, 0.65);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.video-modal {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(44,41,72,0.18);
+  padding: 32px 24px 24px 24px;
+  max-width: 520px;
+  width: 95vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #764ba2;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 2;
+}
+
+.video-modal-close:hover {
+  color: #333;
+}
+
+.video-modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.video-modal-player {
+  width: 100%;
+  max-width: 440px;
+  border-radius: 10px;
+  background: #000;
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .video-modal {
+    padding: 16px 4px 12px 4px;
+    max-width: 98vw;
+  }
+  .video-modal-title {
+    font-size: 1.05rem;
+  }
+  .video-modal-player {
+    max-width: 98vw;
+    min-height: 180px;
+  }
+}

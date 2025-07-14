@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ContentItem from './ContentItem';
+import VideoModal from './VideoModal';
+
+const VIDEO_MAP = {
+  'History of Money': '/videos/Historyofmoney.mp4',
+  'Time Value of Money': '/videos/BasicsofEconomics.mp4',
+  'Digital Dollars & Stablecoins': '/videos/Cryptocurrency.mp4',
+};
 
 const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectionComplete }) => {
+  const [videoModal, setVideoModal] = useState({ open: false, src: '', title: '' });
+
   if (!selectedModule) return null;
 
   const currentModule = modules.find(m => m.id === selectedModule);
@@ -12,8 +21,21 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
     ? Math.round((Object.values(sectionState).filter(Boolean).length / totalSections) * 100)
     : 0;
 
+  // Only allow video modal for the three topics in Evolution & Forms of Money
+  const handleWatchVideo = (topic) => {
+    if (selectedModule === 1 && VIDEO_MAP[topic]) {
+      setVideoModal({ open: true, src: VIDEO_MAP[topic], title: topic });
+    }
+  };
+
   return (
     <section className="content-section">
+      <VideoModal
+        open={videoModal.open}
+        onClose={() => setVideoModal({ open: false, src: '', title: '' })}
+        videoSrc={videoModal.src}
+        title={videoModal.title}
+      />
       <div className="content-header">
         <h2 className="selected-module-title">
           MODULE {selectedModule} – {currentModule?.title}
@@ -28,7 +50,7 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
       <div className="content-list">
         {currentModule?.content.map((item) => (
           <div key={item.id} style={{ position: 'relative' }}>
-            <ContentItem item={item} />
+            <ContentItem item={item} onWatchVideo={handleWatchVideo} />
             {isSectionFormat && (
               <div className="section-progress-bar-container">
                 <div className="section-progress-bar" style={{ width: sectionState[item.id] ? '100%' : '0%' }} />

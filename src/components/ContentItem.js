@@ -15,7 +15,7 @@ const getTopicTitle = (topic) => {
   return idx !== -1 ? topic.slice(0, idx).trim() : topic;
 };
 
-const ContentItem = ({ item }) => {
+const ContentItem = ({ item, onWatchVideo }) => {
   // If the item has a topics array, render as a section with bullet points
   if (item.topics) {
     return (
@@ -28,7 +28,9 @@ const ContentItem = ({ item }) => {
               <li key={idx} className="item-topic">
                 {getTopicTitle(topic)}
                 <div className="topic-actions">
-                  <button className="topic-btn video-btn">Watch video <span className="btn-time">(2 minutes)</span></button>
+                  <button className="topic-btn video-btn" onClick={() => onWatchVideo && onWatchVideo(getTopicTitle(topic))}>
+                    Watch video <span className="btn-time">(2 minutes)</span>
+                  </button>
                   <button className="topic-btn slides-btn">View Slides <span className="btn-time">(5 minutes)</span></button>
                 </div>
               </li>
