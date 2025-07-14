@@ -1,11 +1,16 @@
 import React from 'react';
 import ContentItem from './ContentItem';
 
-const ContentSection = ({ selectedModule, modules }) => {
+const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectionComplete }) => {
   if (!selectedModule) return null;
 
   const currentModule = modules.find(m => m.id === selectedModule);
   const isSectionFormat = currentModule?.content?.[0]?.topics !== undefined;
+  const totalSections = currentModule?.content.length || 0;
+  const sectionState = sectionProgress[selectedModule] || {};
+  const percent = totalSections
+    ? Math.round((Object.values(sectionState).filter(Boolean).length / totalSections) * 100)
+    : 0;
 
   return (
     <section className="content-section">
@@ -13,10 +18,30 @@ const ContentSection = ({ selectedModule, modules }) => {
         <h2 className="selected-module-title">
           MODULE {selectedModule} – {currentModule?.title}
         </h2>
+        {isSectionFormat && (
+          <div className="module-progress-bar-container" style={{ marginTop: 12 }}>
+            <div className="module-progress-bar" style={{ width: percent + '%' }} />
+            <span className="module-progress-label">{percent}% complete</span>
+          </div>
+        )}
       </div>
       <div className="content-list">
         {currentModule?.content.map((item) => (
-          <ContentItem key={item.id} item={item} />
+          <div key={item.id} style={{ position: 'relative' }}>
+            <ContentItem item={item} />
+            {isSectionFormat && (
+              <div className="section-progress-bar-container">
+                <div className="section-progress-bar" style={{ width: sectionState[item.id] ? '100%' : '0%' }} />
+                <span className="section-progress-label">{sectionState[item.id] ? 'Complete' : 'Incomplete'}</span>
+                <button
+                  className="section-complete-btn"
+                  onClick={() => toggleSectionComplete(selectedModule, item.id, totalSections)}
+                >
+                  {sectionState[item.id] ? 'Mark as incomplete' : 'Mark as complete'}
+                </button>
+              </div>
+            )}
+          </div>
         ))}
       </div>
       {isSectionFormat && (
