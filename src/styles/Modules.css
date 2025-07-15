@@ -139,6 +139,20 @@
   color: #7c4700;
 }
 
+.modules-info-box {
+  background: rgba(255,255,255,0.18);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(44,41,72,0.08);
+  padding: 18px 32px 14px 32px;
+  margin: 0 auto 28px auto;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
 @media (max-width: 1024px) {
   .modules-grid {
     grid-template-columns: 1fr 1fr;
@@ -177,5 +191,12 @@
   }
   .module-title {
     font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .modules-info-box {
+    padding: 10px 6px 8px 6px;
+    max-width: 99vw;
   }
 } 

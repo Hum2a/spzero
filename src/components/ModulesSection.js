@@ -5,9 +5,11 @@ const ModulesSection = ({ modules, selectedModule, onModuleClick, moduleProgress
   return (
     <section className="modules-section">
       <h2 className="section-title">Choose Your Learning Path</h2>
-      <p className="modules-info">4 Modules: 10 lessons for per module</p>
-      <p className="modules-info">Long journey: 3 hours of learning time</p>
-      <p className="modules-info">Short journey: 1 hour of quizzes</p>
+      <div className="modules-info-box">
+        <p className="modules-info">4 Modules: 10 lessons for per module</p>
+        <p className="modules-info">Long journey: 3 hours of learning time</p>
+        <p className="modules-info">Short journey: 1 hour of quizzes</p>
+      </div>
 
       <div className="modules-grid">
         {modules.map((module) => {

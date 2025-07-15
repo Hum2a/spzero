@@ -159,8 +159,8 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
           </div>
         ))}
       </div>
-      {/* Render summary table for Module 2 */}
-      {selectedModule === 2 && currentModule.summaryTable && (
+      {/* Render summary table for all modules */}
+      {currentModule.summaryTable && (
         <div className="module-summary-table-container">
           <h3 className="module-summary-table-title">Summary</h3>
           <table className="module-summary-table">

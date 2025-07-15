@@ -34,7 +34,7 @@ export const modules = [
         title: "Policy Levers & Macro Indicators",
         topics: [
           "The Federal Reserve 101 – what the Fed actually does and how you feel it in your wallet",
-          "Fiscal Policy – how Congress’s tax-and-spend choices hit household budgets"
+          "Fiscal Policy – how Congress's tax-and-spend choices hit household budgets"
         ]
       }
     ],
