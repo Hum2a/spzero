@@ -26,7 +26,7 @@ body {
 .header {
   text-align: center;
   margin-bottom: 40px;
-  padding: 40px 0;D
+  padding: 40px 0;
 }
 
 .company-name {
@@ -820,5 +820,37 @@ body {
   .modules-info {
     font-size: 1rem;
     margin-bottom: 6px;
+  }
+}
+
+.modal-status-bar {
+  display: flex;
+  gap: 4px;
+  margin: 0 0 18px 0;
+  padding: 0 4px;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+.modal-status-segment {
+  flex: 1 1 0;
+  height: 5px;
+  background: #e0e7ff;
+  border-radius: 3px;
+  transition: background 0.3s;
+}
+.modal-status-segment.filled {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+@media (max-width: 600px) {
+  .modal-status-bar {
+    margin-bottom: 10px;
+    gap: 2px;
+  }
+  .modal-status-segment {
+    height: 3px;
   }
 }
