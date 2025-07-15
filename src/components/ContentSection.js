@@ -189,7 +189,8 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
       )}
       {isSectionFormat && (
         <div className="take-quiz-container">
-          <button className="take-quiz-btn">Take quiz</button>
+          <button className="take-quiz-btn">Long Journey</button>
+          <button className="take-quiz-btn" style={{ marginLeft: 16 }}>Short Journey</button>
         </div>
       )}
     </section>
