@@ -547,8 +547,8 @@ body {
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(44,41,72,0.18);
   padding: 32px 24px 24px 24px;
-  max-width: 520px;
-  width: 95vw;
+  max-width: 720px;
+  width: 98vw;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -588,16 +588,100 @@ body {
   outline: none;
 }
 
-@media (max-width: 600px) {
+.slides-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 70vh;
+  overflow-y: auto;
+  gap: 12px;
+}
+
+.slides-gallery img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(44,41,72,0.08);
+}
+
+.slides-story-viewer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  min-height: 440px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.slide-image {
+  max-width: 98%;
+  max-height: 75vh;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(44,41,72,0.08);
+  margin: 0 48px;
+  object-fit: contain;
+  background: #f8f9fa;
+}
+
+.slide-nav-btn {
+  background: rgba(102, 126, 234, 0.15);
+  border: none;
+  color: #667eea;
+  font-size: 2.6rem;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.slide-nav-btn.left {
+  left: 0;
+}
+.slide-nav-btn.right {
+  right: 0;
+}
+.slide-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.slide-indicator {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(44,41,72,0.08);
+  color: #3730a3;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 4px 16px;
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(44,41,72,0.06);
+}
+
+@media (max-width: 900px) {
   .video-modal {
-    padding: 16px 4px 12px 4px;
     max-width: 98vw;
   }
-  .video-modal-title {
-    font-size: 1.05rem;
-  }
-  .video-modal-player {
+  .slides-story-viewer {
+    min-height: 260px;
     max-width: 98vw;
-    min-height: 180px;
+  }
+  .slide-image {
+    max-width: 99%;
+    margin: 0 8px;
+  }
+  .slide-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.7rem;
   }
 }

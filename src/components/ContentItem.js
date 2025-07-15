@@ -15,7 +15,7 @@ const getTopicTitle = (topic) => {
   return idx !== -1 ? topic.slice(0, idx).trim() : topic;
 };
 
-const ContentItem = ({ item, onWatchVideo, demoActions, handleDemoAction, moduleId, sectionId }) => {
+const ContentItem = ({ item, onWatchVideo, onViewSlides, demoActions, handleDemoAction, moduleId, sectionId }) => {
   // If the item has a topics array, render as a section with bullet points
   const isDemo = moduleId === 1 && sectionId === 1;
   if (item.topics) {
@@ -45,7 +45,10 @@ const ContentItem = ({ item, onWatchVideo, demoActions, handleDemoAction, module
                     </button>
                     <button
                       className={`topic-btn slides-btn${isDemo && demoActions[slidesKey] ? ' completed' : ''}`}
-                      onClick={() => isDemo && handleDemoAction(title, 'slides')}
+                      onClick={() => {
+                        if (isDemo) handleDemoAction(title, 'slides');
+                        if (onViewSlides) onViewSlides(title);
+                      }}
                     >
                       View Slides <span className="btn-time">(5 minutes)</span>
                       {isDemo && demoActions[slidesKey] && <span className="topic-check">✔</span>}

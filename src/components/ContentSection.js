@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
 import ContentItem from './ContentItem';
-import VideoModal from './VideoModal';
+import Modal from './VideoModal';
 
 const VIDEO_MAP = {
   'History of Money': '/videos/Historyofmoney.mp4',
   'Time Value of Money': '/videos/BasicsofEconomics.mp4',
   'Digital Dollars & Stablecoins': '/videos/Cryptocurrency.mp4',
+};
+
+const SLIDES_MAP = {
+  'History of Money': [
+    '/historySlides/1.jpg',
+    '/historySlides/2.jpg',
+    '/historySlides/3.jpg',
+    '/historySlides/4.jpg',
+  ],
+  'Digital Dollars & Stablecoins': [
+    '/digitalSlides/5.jpg',
+    '/digitalSlides/6.jpg',
+    '/digitalSlides/7.jpg',
+    '/digitalSlides/8.jpg',
+    '/digitalSlides/9.jpg',
+    '/digitalSlides/10.jpg',
+  ],
 };
 
 const DEMO_TOPICS = ['History of Money', 'Time Value of Money', 'Digital Dollars & Stablecoins'];
@@ -14,6 +31,8 @@ const DEMO_TOTAL = DEMO_TOPICS.length * DEMO_ACTIONS.length;
 
 const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectionComplete, demoActions, handleDemoAction }) => {
   const [videoModal, setVideoModal] = useState({ open: false, src: '', title: '' });
+  const [slidesModal, setSlidesModal] = useState({ open: false, slides: [], title: '' });
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   if (!selectedModule) return null;
 
@@ -32,6 +51,19 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
     }
   };
 
+  const handleViewSlides = (topic) => {
+    if (selectedModule === 1 && SLIDES_MAP[topic]) {
+      setSlidesModal({ open: true, slides: SLIDES_MAP[topic], title: topic });
+      setCurrentSlide(0);
+    }
+  };
+  const handleNextSlide = () => {
+    setCurrentSlide((prev) => Math.min(prev + 1, slidesModal.slides.length - 1));
+  };
+  const handlePrevSlide = () => {
+    setCurrentSlide((prev) => Math.max(prev - 1, 0));
+  };
+
   // Demo: Section 1 progress
   let demoSection1Progress = 0;
   if (selectedModule === 1) {
@@ -42,12 +74,50 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
 
   return (
     <section className="content-section">
-      <VideoModal
+      <Modal
         open={videoModal.open}
         onClose={() => setVideoModal({ open: false, src: '', title: '' })}
-        videoSrc={videoModal.src}
         title={videoModal.title}
-      />
+      >
+        <video controls autoPlay className="video-modal-player">
+          <source src={videoModal.src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </Modal>
+      <Modal
+        open={slidesModal.open}
+        onClose={() => setSlidesModal({ open: false, slides: [], title: '' })}
+        title={slidesModal.title + ' Slides'}
+      >
+        {slidesModal.slides.length > 0 && (
+          <div className="slides-story-viewer">
+            <button
+              className="slide-nav-btn left"
+              onClick={handlePrevSlide}
+              disabled={currentSlide === 0}
+              aria-label="Previous slide"
+            >
+              &#8592;
+            </button>
+            <img
+              src={slidesModal.slides[currentSlide]}
+              alt={`Slide ${currentSlide + 1}`}
+              className="slide-image"
+            />
+            <button
+              className="slide-nav-btn right"
+              onClick={handleNextSlide}
+              disabled={currentSlide === slidesModal.slides.length - 1}
+              aria-label="Next slide"
+            >
+              &#8594;
+            </button>
+            <div className="slide-indicator">
+              {currentSlide + 1} / {slidesModal.slides.length}
+            </div>
+          </div>
+        )}
+      </Modal>
       <div className="content-header">
         <h2 className="selected-module-title">
           MODULE {selectedModule} – {currentModule?.title}
@@ -65,6 +135,7 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
             <ContentItem
               item={item}
               onWatchVideo={handleWatchVideo}
+              onViewSlides={handleViewSlides}
               demoActions={demoActions}
               handleDemoAction={handleDemoAction}
               moduleId={selectedModule}
