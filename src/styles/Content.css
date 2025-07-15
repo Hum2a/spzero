@@ -185,6 +185,24 @@
   transform: translateY(-2px) scale(1.03);
 }
 
+.take-quiz-btn.long-journey {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+.take-quiz-btn.long-journey:hover {
+  background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+  color: #fff;
+}
+
+.take-quiz-btn.short-journey {
+  background: linear-gradient(90deg, #34d399 0%, #10b981 100%);
+  color: #fff;
+}
+.take-quiz-btn.short-journey:hover {
+  background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
+  color: #fff;
+}
+
 .evolution-quiz-btn-container {
   display: flex;
   justify-content: center;
