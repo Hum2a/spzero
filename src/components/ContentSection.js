@@ -88,6 +88,7 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
         open={slidesModal.open}
         onClose={() => setSlidesModal({ open: false, slides: [], title: '' })}
         title={slidesModal.title + ' Slides'}
+        progress={{ current: currentSlide + 1, total: slidesModal.slides.length }}
       >
         {slidesModal.slides.length > 0 && (
           <div className="slides-story-viewer">
@@ -158,6 +159,34 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
           </div>
         ))}
       </div>
+      {/* Render summary table for Module 2 */}
+      {selectedModule === 2 && currentModule.summaryTable && (
+        <div className="module-summary-table-container">
+          <h3 className="module-summary-table-title">Summary</h3>
+          <table className="module-summary-table">
+            <thead>
+              <tr>
+                {currentModule.summaryTable.headers.map((header, idx) => (
+                  <th key={idx}>{header}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {currentModule.summaryTable.rows.map((row, idx) => (
+                <tr key={idx}>
+                  {row.map((cell, cidx) => (
+                    <td key={cidx}>{cell}</td>
+                  ))}
+                </tr>
+              ))}
+              <tr className="module-summary-table-total">
+                <td colSpan={currentModule.summaryTable.headers.length - 1} style={{ textAlign: 'right', fontWeight: 700 }}>Total time</td>
+                <td style={{ fontWeight: 700 }}>{currentModule.summaryTable.totalTime}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
       {isSectionFormat && (
         <div className="take-quiz-container">
           <button className="take-quiz-btn">Take quiz</button>
