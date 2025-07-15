@@ -46,10 +46,12 @@ body {
 /* Section Titles */
 .section-title {
   text-align: center;
-  font-size: 2rem;
-  color: white;
-  margin-bottom: 30px;
-  font-weight: 600;
+  font-size: 2.4rem;
+  color: #fff;
+  margin-bottom: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(44,41,72,0.10);
 }
 
 /* Modules Section */
@@ -553,6 +555,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 28px;
 }
 
 .video-modal-close {
@@ -743,13 +746,28 @@ body {
 }
 
 .custom-header {
+  width: 100vw;
+  min-width: 100vw;
+  left: 0;
+  top: 0;
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background: #fff;
   padding: 0;
   min-height: 56px;
   box-shadow: 0 2px 6px rgba(44,41,72,0.04);
+  margin: 0;
+  z-index: 100;
+}
+.header-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .header-left {
   display: flex;
@@ -787,6 +805,11 @@ body {
 @media (max-width: 600px) {
   .custom-header {
     min-height: 44px;
+    padding: 0;
+  }
+  .header-container {
+    max-width: 99vw;
+    padding: 0 2px;
   }
   .header-left {
     height: 44px;
@@ -809,48 +832,62 @@ body {
 
 .modules-info {
   text-align: center;
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 8px;
-  font-weight: 400;
-  line-height: 1.4;
+  font-size: 1.35rem;
+  color: #fff;
+  margin-bottom: 10px;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 8px rgba(44,41,72,0.12);
 }
 
 @media (max-width: 768px) {
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
   .modules-info {
-    font-size: 1rem;
+    font-size: 1.05rem;
     margin-bottom: 6px;
+    line-height: 1.4;
   }
 }
 
 .modal-status-bar {
   display: flex;
-  gap: 4px;
-  margin: 0 0 18px 0;
-  padding: 0 4px;
-  position: relative;
+  gap: 6px;
+  margin: 0;
+  padding: 0 24px;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  height: 10px;
+  z-index: 20;
 }
 .modal-status-segment {
   flex: 1 1 0;
-  height: 5px;
-  background: #e0e7ff;
+  height: 6px;
+  background: #444;
   border-radius: 3px;
   transition: background 0.3s;
+  opacity: 0.7;
 }
 .modal-status-segment.filled {
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  background: #fff;
+  opacity: 1;
 }
 
 @media (max-width: 600px) {
   .modal-status-bar {
-    margin-bottom: 10px;
+    padding: 0 6px;
     gap: 2px;
+    height: 6px;
   }
   .modal-status-segment {
     height: 3px;
+  }
+  .video-modal {
+    padding-top: 16px;
   }
 }

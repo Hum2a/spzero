@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import './App.css';
+import './styles/Base.css';
+import './styles/Header.css';
+import './styles/Modules.css';
+import './styles/Content.css';
+import './styles/Modal.css';
 import Header from './components/Header';
 import ModulesSection from './components/ModulesSection';
 import ContentSection from './components/ContentSection';
