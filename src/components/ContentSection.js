@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ContentItem from './ContentItem';
 import Modal from './VideoModal';
+import QuizModal from './QuizModal';
 
 const VIDEO_MAP = {
   'History of Money': '/videos/Historyofmoney.mp4',
@@ -32,6 +33,7 @@ const DEMO_TOTAL = DEMO_TOPICS.length * DEMO_ACTIONS.length;
 const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectionComplete, demoActions, handleDemoAction }) => {
   const [videoModal, setVideoModal] = useState({ open: false, src: '', title: '' });
   const [slidesModal, setSlidesModal] = useState({ open: false, slides: [], title: '' });
+  const [quizModal, setQuizModal] = useState({ open: false });
   const [currentSlide, setCurrentSlide] = useState(0);
 
   if (!selectedModule) return null;
@@ -57,6 +59,15 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
       setCurrentSlide(0);
     }
   };
+
+  const handleOpenQuiz = () => {
+    setQuizModal({ open: true });
+  };
+
+  const handleCloseQuiz = () => {
+    setQuizModal({ open: false });
+  };
+
   const handleNextSlide = () => {
     setCurrentSlide((prev) => Math.min(prev + 1, slidesModal.slides.length - 1));
   };
@@ -119,6 +130,10 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
           </div>
         )}
       </Modal>
+      <QuizModal
+        isOpen={quizModal.open}
+        onClose={handleCloseQuiz}
+      />
       <div className="content-header">
         <h2 className="selected-module-title">
           MODULE {selectedModule} – {currentModule?.title}
@@ -153,7 +168,7 @@ const ContentSection = ({ selectedModule, modules, sectionProgress, toggleSectio
             {/* Add Take quiz CTA below Evolution & Forms of Money (id: 1) in Module 1 */}
             {selectedModule === 1 && item.id === 1 && (
               <div className="evolution-quiz-btn-container">
-                <button className="evolution-quiz-btn">Take quiz</button>
+                <button className="evolution-quiz-btn" onClick={handleOpenQuiz}>Take quiz</button>
               </div>
             )}
           </div>
