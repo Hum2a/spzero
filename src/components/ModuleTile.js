@@ -8,7 +8,7 @@ const ModuleTile = ({ module, isActive, onClick }) => {
     >
       <div className="module-number">{module.id}</div>
       <h3 className="module-title">{module.title}</h3>
-      <div className="arrow">↓</div>
+      {/* <div className="arrow">↓</div> */}
     </div>
   );
 };
