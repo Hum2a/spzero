@@ -1,9 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const QuizModal = ({ isOpen, onClose }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
+  const [timeSpent, setTimeSpent] = useState(0);
+  const [isAnswered, setIsAnswered] = useState(false);
+
+  useEffect(() => {
+    let interval;
+    if (isOpen && !showResults) {
+      interval = setInterval(() => {
+        setTimeSpent(prev => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isOpen, showResults]);
+
+  useEffect(() => {
+    setIsAnswered(answers[currentQuestion] !== undefined);
+  }, [answers, currentQuestion]);
 
   const questions = [
     {
@@ -186,6 +202,34 @@ const QuizModal = ({ isOpen, onClose }) => {
     }
   };
 
+  const getTopicStats = () => {
+    const stats = {};
+    questions.forEach((q, index) => {
+      if (!stats[q.topic]) {
+        stats[q.topic] = { total: 0, correct: 0 };
+      }
+      stats[q.topic].total++;
+      if (answers[index] === q.correctAnswer) {
+        stats[q.topic].correct++;
+      }
+    });
+    return stats;
+  };
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const getScoreMessage = (percentage) => {
+    if (percentage >= 90) return "Excellent! You've mastered the fundamentals!";
+    if (percentage >= 80) return "Great job! You have a solid understanding!";
+    if (percentage >= 70) return "Good work! Keep learning and improving!";
+    if (percentage >= 60) return "Not bad! Review the topics and try again!";
+    return "Keep studying! Review the explanations and retake the quiz!";
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -196,12 +240,24 @@ const QuizModal = ({ isOpen, onClose }) => {
         {!showResults ? (
           <>
             <div className="quiz-header">
-              <div className="quiz-progress">
-                Question {currentQuestion + 1} of {questions.length}
+              <div className="quiz-progress-info">
+                <div className="quiz-progress">
+                  Question {currentQuestion + 1} of {questions.length}
+                </div>
+                <div className="quiz-timer">
+                  ⏱️ {formatTime(timeSpent)}
+                </div>
               </div>
               <div className="quiz-topic" style={{ backgroundColor: getTopicColor(questions[currentQuestion].topic) }}>
                 {questions[currentQuestion].topic}
               </div>
+            </div>
+
+            <div className="quiz-progress-bar-container">
+              <div 
+                className="quiz-progress-bar" 
+                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+              />
             </div>
 
             <div className="quiz-question">
@@ -215,7 +271,8 @@ const QuizModal = ({ isOpen, onClose }) => {
                   className={`quiz-option ${answers[currentQuestion] === index ? 'selected' : ''}`}
                   onClick={() => handleAnswerSelect(index)}
                 >
-                  {option}
+                  <span className="option-letter">{String.fromCharCode(65 + index)}</span>
+                  <span className="option-text">{option}</span>
                 </button>
               ))}
             </div>
@@ -226,8 +283,12 @@ const QuizModal = ({ isOpen, onClose }) => {
                 onClick={handlePrevious}
                 disabled={currentQuestion === 0}
               >
-                Previous
+                ← Previous
               </button>
+              
+              <div className="quiz-answered-indicator">
+                {isAnswered && <span className="answered-check">✓ Answered</span>}
+              </div>
               
               {currentQuestion === questions.length - 1 ? (
                 <button className="quiz-submit-btn" onClick={handleSubmit}>
@@ -235,28 +296,73 @@ const QuizModal = ({ isOpen, onClose }) => {
                 </button>
               ) : (
                 <button className="quiz-nav-btn" onClick={handleNext}>
-                  Next
+                  Next →
                 </button>
               )}
             </div>
           </>
         ) : (
           <div className="quiz-results">
-            <h2>Quiz Results</h2>
+            <div className="results-header">
+              <h2>Quiz Results</h2>
+              <div className="quiz-time-spent">
+                Time spent: {formatTime(timeSpent)}
+              </div>
+            </div>
+            
             {(() => {
               const score = calculateScore();
+              const topicStats = getTopicStats();
               return (
                 <div className="score-display">
-                  <div className="score-percentage">{score.percentage}%</div>
-                  <div className="score-details">
-                    {score.correct} out of {score.total} questions correct
+                  <div className="score-overview">
+                    <div className="score-circle">
+                      <div className="score-percentage">{score.percentage}%</div>
+                      <div className="score-details">
+                        {score.correct} / {score.total}
+                      </div>
+                    </div>
+                    <div className="score-message">
+                      {getScoreMessage(score.percentage)}
+                    </div>
+                  </div>
+                  
+                  <div className="topic-scores-overview">
+                    <h4>Topic Breakdown</h4>
+                    <div className="topic-scores-grid">
+                      {Object.entries(topicStats).map(([topic, stats]) => {
+                        const topicPercentage = Math.round((stats.correct / stats.total) * 100);
+                        return (
+                          <div key={topic} className="topic-score-card">
+                            <div className="topic-score-header">
+                              <span className="topic-score-name" style={{ backgroundColor: getTopicColor(topic) }}>
+                                {topic}
+                              </span>
+                              <span className="topic-score-percentage">{topicPercentage}%</span>
+                            </div>
+                            <div className="topic-score-details">
+                              {stats.correct} of {stats.total} correct
+                            </div>
+                            <div className="topic-score-bar">
+                              <div 
+                                className="topic-score-progress" 
+                                style={{ 
+                                  width: `${topicPercentage}%`,
+                                  backgroundColor: getTopicColor(topic)
+                                }}
+                              />
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               );
             })()}
             
             <div className="results-breakdown">
-              <h3>Question Breakdown:</h3>
+              <h3>Question Breakdown</h3>
               {questions.map((q, index) => (
                 <div key={q.id} className="result-item">
                   <div className="result-question">
@@ -279,13 +385,19 @@ const QuizModal = ({ isOpen, onClose }) => {
               ))}
             </div>
             
-            <button className="quiz-restart-btn" onClick={() => {
-              setCurrentQuestion(0);
-              setAnswers({});
-              setShowResults(false);
-            }}>
-              Retake Quiz
-            </button>
+            <div className="results-actions">
+              <button className="quiz-restart-btn" onClick={() => {
+                setCurrentQuestion(0);
+                setAnswers({});
+                setShowResults(false);
+                setTimeSpent(0);
+              }}>
+                Retake Quiz
+              </button>
+              <button className="quiz-close-btn" onClick={onClose}>
+                Close
+              </button>
+            </div>
           </div>
         )}
       </div>
