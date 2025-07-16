@@ -127,26 +127,6 @@
   line-height: 18px;
 }
 
-.module-complete-btn {
-  display: block;
-  margin: 12px auto 0 auto;
-  background: #fef9c3;
-  color: #b45309;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 18px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  min-height: 40px;
-}
-
-.module-complete-btn:hover {
-  background: #fde047;
-  color: #7c4700;
-}
-
 .modules-info-box {
   background: rgba(42,42,42,0.8);
   border-radius: 16px;

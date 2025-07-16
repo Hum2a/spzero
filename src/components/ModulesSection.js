@@ -27,14 +27,6 @@ const ModulesSection = ({ modules, selectedModule, onModuleClick, moduleProgress
                 <div className="module-progress-bar" style={{ width: percent + '%' }} />
                 <span className="module-progress-label">{percent}% complete</span>
               </div>
-              {isSectionFormat && (
-                <button
-                  className="module-complete-btn"
-                  onClick={() => toggleModuleComplete(module.id, totalSections)}
-                >
-                  {percent === 100 ? 'Mark all as incomplete' : 'Mark all as complete'}
-                </button>
-              )}
             </div>
           );
         })}
